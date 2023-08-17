@@ -17,7 +17,10 @@ class PregledFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'lekar_id' => $this->faker->randomDigitNot(0),
+            'pacijent_id' => $this->faker->randomDigitNot(0),
+            'Anamneza' => $this->faker->sentence(3),
+            'Terapija' => $this->faker->sentence(3)
         ];
     }
 }
