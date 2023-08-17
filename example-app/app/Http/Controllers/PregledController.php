@@ -33,6 +33,16 @@ class PregledController extends Controller
         ]);
     }
 
+    public function deletePregled(Pregled $pregled)
+    {
+        $success = $pregled->delete();
+
+        return [
+            'success' => $success
+        ];
+
+    }
+
 
     /**
      * Display a listing of the resource.

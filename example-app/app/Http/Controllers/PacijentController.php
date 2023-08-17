@@ -33,27 +33,6 @@ class PacijentController extends Controller
         ]);
     }
 
-    public function editPacijent(Pacijent $pacijent)
-    {
-        request()->validate([
-            'Ime' => 'required',
-            'Prezime' => 'required',
-            'Godine' => 'required',
-            'HronicneBolesti' => 'required'
-        ]);
-
-        $success = $pacijent->update([
-            'Ime' => request('Ime'),
-            'Prezime' => request('Prezime'),
-            'Godine' => request('Godine'),
-            'HronicneBolesti' => request('HronicneBolesti')
-        ]);
-
-        return [
-            'success' => $success
-        ];
-    }
-
     public function deletePacijent(Pacijent $pacijent)
     {
         $success = $pacijent->delete();

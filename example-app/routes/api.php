@@ -35,3 +35,5 @@ Route::resource('pregleds', PregledController::class);
 Route::get('/pregleds', [PregledController::class, 'getAllPregleds']);
 
 Route::post('/pregleds', [PregledController::class, 'addPregled']);
+
+Route::delete('/pregleds/{pregled}', [PregledController::class, 'deletePregled']);
