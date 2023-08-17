@@ -4,6 +4,7 @@ use App\Http\Controllers\PacijentController;
 use App\Http\Controllers\PregledController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,24 +17,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Rute za autentifikaciju
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+
+//POST i DELETE mogu samo autorizovani korisnici
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('pacijents', PacijentController::class);
+
+    Route::post('/pacijents', [PacijentController::class, 'addPacijent']);
+
+    Route::delete('/pacijents/{pacijent}', [PacijentController::class, 'deletePacijent']);
+
+
+    Route::resource('pregleds', PregledController::class);
+
+    Route::post('/pregleds', [PregledController::class, 'addPregled']);
+
+    Route::delete('/pregleds/{pregled}', [PregledController::class, 'deletePregled']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
 });
 
-Route::resource('pacijents', PacijentController::class);
+//Ovim rutama mogu prisupati svi korisnici
+
 
 Route::get('/pacijents', [PacijentController::class, 'getAllPacijents']);
 
-Route::post('/pacijents', [PacijentController::class, 'addPacijent']);
-
-Route::delete('/pacijents/{pacijent}', [PacijentController::class, 'deletePacijent']);
-
-
-
-Route::resource('pregleds', PregledController::class);
-
 Route::get('/pregleds', [PregledController::class, 'getAllPregleds']);
-
-Route::post('/pregleds', [PregledController::class, 'addPregled']);
-
-Route::delete('/pregleds/{pregled}', [PregledController::class, 'deletePregled']);
