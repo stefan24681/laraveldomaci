@@ -12,14 +12,14 @@ class PregledResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
         return [
             'id' => $this->resource->id,
             'lekar_id' => $this->resource->lekar,
             'pacijent_id' => $this->resource->pacijent,
             'Anamneza' => $this->resource->Anamneza,
-            'Terapija' => $this->resource->Terapija
+            'Terapija' => $this->resource->Terapija,
 
         ];
     }
